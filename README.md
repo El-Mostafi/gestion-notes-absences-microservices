@@ -2,9 +2,6 @@
 
 Ce dépôt contient un projet complet de gestion des notes et des absences basé sur une architecture microservices avec backends Spring Boot et frontends React.
 
-## Nom proposé du dépôt
-
-**gestion-notes-absences-microservices**
 
 ## Contenu du projet
 
