@@ -1,0 +1,153 @@
+{
+  "info": {
+    "name": "Gestion Absentéisme Étudiants API",
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "description": "Collection pour tester l'API de gestion d'absentéisme des étudiants",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. ADD - Ajouter un étudiant",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nom\": \"Alami\",\n  \"prenom\": \"Ahmed\",\n  \"cne\": \"CNE100\",\n  \"niveau\": \"L3\",\n  \"heuresAbsence\": 250\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants"]
+        }
+      }
+    },
+    {
+      "name": "2. READ - Obtenir le taux d'absence",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants/1/taux-absence",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants", "1", "taux-absence"]
+        }
+      }
+    },
+    {
+      "name": "3. READ - Obtenir un étudiant par ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants", "1"]
+        }
+      }
+    },
+    {
+      "name": "4. READ - Obtenir tous les étudiants",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants"]
+        }
+      }
+    },
+    {
+      "name": "5. UPDATE - Mettre à jour un étudiant",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nom\": \"Alami\",\n  \"prenom\": \"Ahmed\",\n  \"cne\": \"CNE001\",\n  \"niveau\": \"M1\",\n  \"heuresAbsence\": 300\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants", "1"]
+        }
+      }
+    },
+    {
+      "name": "6. DELETE - Supprimer un étudiant",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants", "1"]
+        }
+      }
+    },
+    {
+      "name": "7. BLACKLIST - Taux 50%",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants/blacklist?tauxSeuil=50",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants", "blacklist"],
+          "query": [
+            {
+              "key": "tauxSeuil",
+              "value": "50"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "7. BLACKLIST - Taux 30%",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/etudiants/blacklist?tauxSeuil=30",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "etudiants", "blacklist"],
+          "query": [
+            {
+              "key": "tauxSeuil",
+              "value": "30"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+
