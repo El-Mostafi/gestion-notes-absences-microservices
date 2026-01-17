@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Student, StudentAbsence, FinalGrade } from '../types';
 
-const BASE_URL = 'http://localhost:8079';
+// Use environment variable or default to localhost for development
+// In Docker, nginx will proxy /notes and /absence to the API gateway
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8079';
 
 const api = axios.create({
   baseURL: BASE_URL,

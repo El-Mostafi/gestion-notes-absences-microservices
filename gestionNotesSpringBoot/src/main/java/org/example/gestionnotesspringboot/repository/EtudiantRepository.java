@@ -44,5 +44,16 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
      */
     @Query("SELECT e FROM Etudiant e ORDER BY (e.note1 + e.note2) / 2.0 DESC")
     List<Etudiant> findAllOrderByMoyenneDesc();
+
+    /**
+     * Vérifie si un étudiant existe par CNE
+     */
+    boolean existsByCne(String cne);
+
+    /**
+     * Trouve les étudiants dont le taux d'absence dépasse un seuil
+     */
+    @Query("SELECT e FROM Etudiant e WHERE (e.heuresAbsence / 500.0) * 100 >= :tauxSeuil")
+    List<Etudiant> findBlackListByTauxAbsence(@org.springframework.data.repository.query.Param("tauxSeuil") Double tauxSeuil);
 }
 

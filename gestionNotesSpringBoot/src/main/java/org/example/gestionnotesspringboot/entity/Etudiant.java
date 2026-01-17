@@ -40,6 +40,22 @@ public class Etudiant {
     @Column
     private String module;
 
+    @Column
+    private String niveau; // ex: "L1", "L2", "L3", "M1", "M2"
+
+    @Column
+    private Integer heuresAbsence = 0; // Nombre d'heures d'absentéisme
+
+    /**
+     * Calcule le taux d'absence (supposant 500 heures totales par année)
+     */
+    public Double getTauxAbsence() {
+        if (heuresAbsence == null) {
+            return 0.0;
+        }
+        return (heuresAbsence / 500.0) * 100;
+    }
+
     /**
      * Calcule la moyenne des notes (note1 + note2) / 2
      */

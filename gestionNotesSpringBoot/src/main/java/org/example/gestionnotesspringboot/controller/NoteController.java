@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/notes")
-@CrossOrigin(origins = "*")
+// @CrossOrigin removed - CORS is handled by API Gateway
 public class NoteController {
 
     @Autowired
@@ -156,7 +156,7 @@ public class NoteController {
      * GET /api/notes/etudiant/cne/{cne}/note-finale
      */
     @GetMapping("/etudiant/cne/{cne}/note-finale")
-    public ResponseEntity<Map<String, Object>> getNoteFinaleBy Cne(@PathVariable String cne) {
+    public ResponseEntity<Map<String, Object>> getNoteFinaleByCne(@PathVariable String cne) {
         Double noteFinale = noteService.getNoteFinaleAvecAbsenceByCne(cne);
 
         if (noteFinale == null) {

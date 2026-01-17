@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/absences")
-@CrossOrigin(origins = "*")
+// @CrossOrigin removed - CORS is handled by API Gateway
 public class AbsenceController {
 
     @Autowired

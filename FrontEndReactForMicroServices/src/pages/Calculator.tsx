@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { Calculator as CalcIcon, TrendingDown, Minus, Equal } from 'lucide-react';
+import { motion, useMotionValue, animate, useMotionValueEvent } from 'framer-motion';
+import { Calculator as CalcIcon, Minus, Equal } from 'lucide-react';
 import { gradesApi, absencesApi } from '../services/api';
 import { Student, StudentAbsence } from '../types';
 import toast from 'react-hot-toast';
@@ -17,15 +17,30 @@ export default function Calculator() {
     noteFinale: 0,
   });
 
+  // Display values for animation
+  const [displayMoyenne, setDisplayMoyenne] = useState('0.00');
+  const [displayTaux, setDisplayTaux] = useState('0.0');
+  const [displayPenalite, setDisplayPenalite] = useState('0.00');
+  const [displayFinale, setDisplayFinale] = useState('0.00');
+
   const moyenneCount = useMotionValue(0);
   const tauxCount = useMotionValue(0);
   const penaliteCount = useMotionValue(0);
   const finaleCount = useMotionValue(0);
 
-  const moyenneDisplay = useTransform(moyenneCount, (latest) => latest.toFixed(2));
-  const tauxDisplay = useTransform(tauxCount, (latest) => (latest * 100).toFixed(1));
-  const penaliteDisplay = useTransform(penaliteCount, (latest) => latest.toFixed(2));
-  const finaleDisplay = useTransform(finaleCount, (latest) => latest.toFixed(2));
+  // Update display values when motion values change
+  useMotionValueEvent(moyenneCount, "change", (latest) => {
+    setDisplayMoyenne(latest.toFixed(2));
+  });
+  useMotionValueEvent(tauxCount, "change", (latest) => {
+    setDisplayTaux((latest * 100).toFixed(1));
+  });
+  useMotionValueEvent(penaliteCount, "change", (latest) => {
+    setDisplayPenalite(latest.toFixed(2));
+  });
+  useMotionValueEvent(finaleCount, "change", (latest) => {
+    setDisplayFinale(latest.toFixed(2));
+  });
 
   useEffect(() => {
     loadData();
@@ -39,7 +54,7 @@ export default function Calculator() {
       ]);
       setStudents(studentsRes.data);
       setAbsences(absencesRes.data);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load data');
     }
   };
@@ -247,9 +262,9 @@ export default function Calculator() {
               className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 shadow-xl text-white"
             >
               <div className="text-sm font-medium mb-2 opacity-90">Average (M)</div>
-              <motion.div className="text-5xl font-bold">
-                {moyenneDisplay}
-              </motion.div>
+              <div className="text-5xl font-bold">
+                {displayMoyenne}
+              </div>
               <div className="text-sm mt-2 opacity-75">Initial grade</div>
             </motion.div>
 
@@ -260,9 +275,9 @@ export default function Calculator() {
               className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 shadow-xl text-white"
             >
               <div className="text-sm font-medium mb-2 opacity-90">Absence Rate (T)</div>
-              <motion.div className="text-5xl font-bold">
-                {tauxDisplay}%
-              </motion.div>
+              <div className="text-5xl font-bold">
+                {displayTaux}%
+              </div>
               <div className="text-sm mt-2 opacity-75">Time missed</div>
             </motion.div>
 
@@ -273,10 +288,10 @@ export default function Calculator() {
               className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-xl text-white"
             >
               <div className="text-sm font-medium mb-2 opacity-90">Penalty (T×M)</div>
-              <motion.div className="text-5xl font-bold flex items-center">
+              <div className="text-5xl font-bold flex items-center">
                 <Minus className="w-8 h-8 mr-2" />
-                {penaliteDisplay}
-              </motion.div>
+                {displayPenalite}
+              </div>
               <div className="text-sm mt-2 opacity-75">Points lost</div>
             </motion.div>
 
@@ -296,9 +311,9 @@ export default function Calculator() {
               />
               <div className="relative z-10">
                 <div className="text-sm font-medium mb-2 opacity-90">Final Grade (N)</div>
-                <motion.div className="text-6xl font-bold">
-                  {finaleDisplay}
-                </motion.div>
+                <div className="text-6xl font-bold">
+                  {displayFinale}
+                </div>
                 <div className="text-sm mt-2 opacity-75">Result</div>
               </div>
             </motion.div>
